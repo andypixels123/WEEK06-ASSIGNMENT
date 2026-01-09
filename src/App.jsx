@@ -54,10 +54,10 @@ function App() {
     // console.log(currentImg);
   }
 
-  function handleModal() {
-    // close modal (popup) image
-    console.log("modal clicked");
-  }
+  // function handleModal() {
+  //   // close modal (popup) image
+  //   console.log("modal clicked");
+  // }
 
   function handleThumbs(e) {
     // show clicked thumbnail in modal
@@ -66,6 +66,14 @@ function App() {
     setCount((e.target.id) - 1);
   }
 
+  //   handleKeyDown = (event) => {
+  //     if (event.key === 'Escape') {
+  //       console.log('Escape key pressed');
+  //     }
+  //   };
+
+
+
   // HTML including components
   return (
     <>
@@ -73,26 +81,25 @@ function App() {
         <Button handler={handlePrevious} text="Previous" ariaText="click for previous image" />
         <Button handler={handleNext} text="Next" ariaText="click for next image" />
       </span>
-      <span id="imageContainer">
-        <Modal handler={handleModal} image={images[currentImg]} />
+      <span id="imageContainer" aria-roledescription="carousel" aria-label="frog images thumbnails">
         <Thumbnails handler={handleThumbs} images={images} />
+        <Modal image={images[currentImg]} />
       </span>
     </>
   );
 }
 
-
 // App.js
 // keypress events from 'geeks for geeks.com'
 // function App() {
-//     const keyPress = (event) => {
+//     const keyUp = (event) => {
 //         console.log(event.key)
 //     }
 //     return (
 //         <div className="App">
 //             <h1>GeeksforGeeks</h1>
 //             <input type='text'
-//                    onKeyPress={keyPress}
+//                    onKeyUp={keyUp}
 //                    placeholder='Press here...' />
 //         </div>
 //     );
@@ -101,16 +108,17 @@ function App() {
 
 // Detecting the Escape Key and Other Specific Actions
 // Similarly, to detect the escape key or perform specific actions based on the key pressed, you can use conditional statements within your event handler:
-// class EscapeKeyComponent extends React.Component {
+// // class EscapeKeyComponent extends React.Component {
+// function App() {
 //   handleKeyDown = (event) => {
 //     if (event.key === 'Escape') {
 //       console.log('Escape key pressed');
 //     }
 //   };
-
-//   render() {
-//     return <div onKeyDown={this.handleKeyDown} tabIndex="0">Press Escape</div>;
-//   }
+//   // render < div onKeyDown = { this.handleKeyDown } tabIndex = "0" > Press Escape</div >;
+//   return (
+//     <div onKeyDown={this.handleKeyDown} tabIndex="0">Press Escape</div>;
+//   )
 // }
 
 // document.addEventListener("keyup", (e) => {
@@ -139,7 +147,7 @@ function App() {
 //     }
 // });
 
-// todo: create div with fixed position, 100vw, 100vh. Ue to detect keypresses ??
+// todo: create div with fixed position, 100vw, 100vh. Use to detect keypresses ??
 // todo: add tabIndex, use tab and enter keys to navigate thumbs ??
 
 export default App;
