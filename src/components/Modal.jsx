@@ -3,9 +3,9 @@
 function Modal({ handler, image }) {
     return (
         <>
-            <div id="modal">
-                <img onClick={handler} src={image?.url} alt={image?.alt} title={image?.title} id={image?.id} />
-            </div>
+            <span id="modal">
+                <img onClick={handler} src={image?.url} alt={image?.alt} title={image?.title} />
+            </span>
         </>
     );
 }

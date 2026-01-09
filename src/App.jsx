@@ -29,7 +29,7 @@ function App() {
       );
       const data = await response.json();
       setImages(data);
-      console.log(data);
+      // console.log(data);
     }
     fetchData();
   }, []);
@@ -66,16 +66,80 @@ function App() {
     setCount((e.target.id) - 1);
   }
 
+  // HTML including components
   return (
     <>
-      <Modal handler={handleModal} image={images[currentImg]} />
-      <Thumbnails handler={handleThumbs} images={images} />
       <span id="buttonContainer">
         <Button handler={handlePrevious} text="Previous" />
         <Button handler={handleNext} text="Next" />
       </span>
+      <span id="imageContainer">
+        <Modal handler={handleModal} image={images[currentImg]} />
+        <Thumbnails handler={handleThumbs} images={images} />
+      </span>
     </>
   );
 }
+
+
+// App.js
+// keypress events from 'geeks for geeks.com'
+// function App() {
+//     const keyPress = (event) => {
+//         console.log(event.key)
+//     }
+//     return (
+//         <div className="App">
+//             <h1>GeeksforGeeks</h1>
+//             <input type='text'
+//                    onKeyPress={keyPress}
+//                    placeholder='Press here...' />
+//         </div>
+//     );
+// }
+
+
+// Detecting the Escape Key and Other Specific Actions
+// Similarly, to detect the escape key or perform specific actions based on the key pressed, you can use conditional statements within your event handler:
+// class EscapeKeyComponent extends React.Component {
+//   handleKeyDown = (event) => {
+//     if (event.key === 'Escape') {
+//       console.log('Escape key pressed');
+//     }
+//   };
+
+//   render() {
+//     return <div onKeyDown={this.handleKeyDown} tabIndex="0">Press Escape</div>;
+//   }
+// }
+
+// document.addEventListener("keyup", (e) => {
+//     // if (!e.repeat) { // for 'keydown' event
+//     if (e) {
+//         // console.log(e.key);
+//         switch (e.key) { // match key pressed
+//             case "ArrowLeft": showPrev();
+//                 break;
+//             case "p": showPrev();
+//                 break;
+//             case "ArrowRight": showNext();
+//                 break;
+//             case "n": showNext();
+//                 break;
+//             case "1": currentImg = 0; createFullscreenImage(currentImg);
+//                 break;
+//             case "2": currentImg = 1; createFullscreenImage(currentImg);
+//                 break;
+//             case "3": currentImg = 2; createFullscreenImage(currentImg);
+//                 break;
+//             case "4": currentImg = 3; createFullscreenImage(currentImg);
+//                 break;
+//             case "5": currentImg = 4; createFullscreenImage(currentImg);
+//         }
+//     }
+// });
+
+// todo: create div with fixed position, 100vw, 100vh. Ue to detect keypresses ??
+// todo: add tabIndex, use tab and enter keys to navigate thumbs ??
 
 export default App;
