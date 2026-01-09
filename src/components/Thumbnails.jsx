@@ -4,19 +4,11 @@ function Thumbnails({ handler, images }) {
         <>
             <div id="thumbs">
                 {images.map((image) => (
-                    <img onClick={handler} key={image.id} src={image.url} alt={image.alt} title={image.title} />
-                    // <img onClick={() => {
-
-                    //     console.log(image.id);
-
-                    // }} key={image.id} src={image.url} alt={image.alt} title={image.title} />
+                    <img onClick={handler} key={image.id} src={image.url} alt={image.alt} title={image.title} id={image.id} />
                 ))}
-
             </div>
-
         </>
     );
-
 }
 
 export default Thumbnails;

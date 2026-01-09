@@ -123,3 +123,7 @@ p {
      height: auto;
      margin: 2% 0;
  }
+
+ #modal {
+  max-width: 500px;
+ }

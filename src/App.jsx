@@ -29,7 +29,7 @@ function App() {
       );
       const data = await response.json();
       setImages(data);
-      // console.log(data);
+      console.log(data);
     }
     fetchData();
   }, []);
@@ -41,6 +41,7 @@ function App() {
       setCount(0);
     } else {
       setCount(currentImg + 1);
+      // console.log(currentImg);
     }
   }
 
@@ -50,6 +51,7 @@ function App() {
     } else {
       setCount(currentImg - 1);
     };
+    // console.log(currentImg);
   }
 
   function handleModal() {
@@ -57,19 +59,17 @@ function App() {
     console.log("modal clicked");
   }
 
-  function handleThumbs() {
+  function handleThumbs(e) {
     // show clicked thumbnail in modal
     // use image.id to select correct image?
-    // use setCount(); ???
-    console.log("thumbnail clicked");
+    // console.log(e.target.id);
+    setCount((e.target.id) - 1);
   }
 
   return (
     <>
-      <Modal handler={handleModal} src={images[currentImg].url} alt={images[currentImg].alt} title={images[currentImg].title} />
+      <Modal handler={handleModal} image={images[currentImg]} />
       <Thumbnails handler={handleThumbs} images={images} />
-      {console.log(currentImg)}{/* react sensing change ??? */}
-      {console.log(images[currentImg].url)}
       <span id="buttonContainer">
         <Button handler={handlePrevious} text="Previous" />
         <Button handler={handleNext} text="Next" />
