@@ -1,6 +1,6 @@
 
-function Button({ handler, text }) {
-    return <button onClick={handler}>{text}</button>;
+function Button({ handler, text, ariaText }) {
+    return <button onClick={handler} aria-label={ariaText} >{text}</button>;
 }
 
 export default Button;

@@ -70,8 +70,8 @@ function App() {
   return (
     <>
       <span id="buttonContainer">
-        <Button handler={handlePrevious} text="Previous" />
-        <Button handler={handleNext} text="Next" />
+        <Button handler={handlePrevious} text="Previous" ariaText="click for previous image" />
+        <Button handler={handleNext} text="Next" ariaText="click for next image" />
       </span>
       <span id="imageContainer">
         <Modal handler={handleModal} image={images[currentImg]} />
