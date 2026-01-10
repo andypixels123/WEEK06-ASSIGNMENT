@@ -6,22 +6,18 @@
   line-height: 1;
 }
 
-button {
+/* button {
   all: unset;
-}
+} */
 
 body,
 button {
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
   color: #404040;
+  cursor: default;
 }
 
-p {
-  margin: 50px 0;
-}
-
-p,
 button {
   text-align: center;
 }
@@ -33,15 +29,32 @@ img {
 }
 
 #thumbs img,
-button {
+#buttonContainer button {
   cursor: pointer;
 }
 
 #buttonContainer {
   display: flex;
-  gap: 10px;
-  padding: 10px;
+  gap: 6px;
   border-radius: 10px;
+}
+
+#buttonContainer,
+#thumbs,
+#modal {
+  padding: 6px;
+}
+
+#thumbs,
+#modal {
+  padding-top: 0;
+}
+
+#thumbs {
+  display: flex;
+  /* align-items: flex-start; */
+  gap: 6px;
+  background-color: gray;
 }
 
 button {
@@ -58,14 +71,32 @@ button:hover {
   /* background-color: rgb(201, 190, 255); */
 }
 
-#thumbs {
-  display: flex;
-  gap: 10px;
-  padding: 0 10px 10px 10px;
+#thumbs button {
+  padding: 10px 0;
+  align-self: center;
 }
 
-#modal img {
-  padding: 0 10px 10px 10px;
+@media screen and (min-width: 481px) {
+
+  #buttonContainer,
+  #thumbs,
+  #modal {
+    padding: 10px;
+  }
+
+  #thumbs,
+  #modal {
+    padding-top: 0;
+  }
+
+  button {
+    padding: 20px 0;
+  }
+
+  #thumbs,
+  #buttonContainer {
+    gap: 10px;
+  }
 }
 
 @media screen and (min-width: 801px) {
@@ -81,15 +112,11 @@ button:hover {
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
-  }
-
-  #modal img {
-    padding: 0 10px 10px 0;
+    padding-left: 0;
   }
 
   #thumbs {
     flex-direction: column;
-    padding: 0 10px 10px 10px;
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 1;

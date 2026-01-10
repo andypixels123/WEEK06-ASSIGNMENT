@@ -4,10 +4,9 @@
 function Modal({ image }) {
     return (
         <>
-            <span id="modal">
-                {/* <img onClick={handler} src={image?.url} alt={image?.alt} title={image?.title} aria-label="main image window" /> */}
+            <div id="modal">
                 <img src={image?.url} alt={image?.alt} title={image?.title} aria-label="main image window" />
-            </span>
+            </div>
         </>
     );
 }

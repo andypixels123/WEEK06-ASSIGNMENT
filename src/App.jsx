@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Modal from "./components/Modal";
 import Thumbnails from "./components/Thumbnails";
 import Button from "./components/Button";
@@ -6,6 +6,7 @@ import Button from "./components/Button";
 // ! DO NOT PUT ALL YOUR CODE IN JUST App.jsx
 // ! USE COMPONENTS
 
+// THE PLAN >>
 // Start with a wireframe: build you react app UI first, then start coding
 
 // state
@@ -21,6 +22,10 @@ import Button from "./components/Button";
 // - when a user presses a button that should switch the image (left and right)
 
 function App() {
+
+  // What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
+
+  // fetch API data
   const [images, setImages] = useState([]);
   useEffect(() => { // prevent infinite loop // prevent react from reacting
     async function fetchData() {
@@ -34,120 +39,94 @@ function App() {
     fetchData();
   }, []);
 
-  const [currentImg, setCount] = useState(0);
+  const [currentImg, setCurrentImage] = useState(0);
+  // useCallback is a React Hook that caches function definition between re-renders
+  // next image in gallery
+  const handleNext = useCallback(() => {
+    setCurrentImage((currentImg) => (currentImg > 4 ? 0 : currentImg + 1));
+  }, []);
 
-  function handleNext() {
-    if (currentImg > 4) {
-      setCount(0);
-    } else {
-      setCount(currentImg + 1);
-      // console.log(currentImg);
-    }
-  }
+  // previous image in gallery
+  const handlePrev = useCallback(() => {
+    setCurrentImage((currentImg) => (currentImg < 1 ? 5 : currentImg - 1));
+  }, []);
 
-  function handlePrevious() {
-    if (currentImg < 1) {
-      setCount(5);
-    } else {
-      setCount(currentImg - 1);
+  useEffect(() => {
+    const handleKeypress = (e) => {
+      switch (e.key) {
+        case "ArrowRight":
+          console.log("right arrow pressed");
+          handleNext();
+          break;
+        case "ArrowLeft":
+          console.log("left arrow key pressed");
+          handlePrev();
+          break;
+        case "Enter":
+          console.log("enter pressed");
+          // todo
+          break;
+        case " ":
+          console.log("spacebar pressed");
+          // todo
+          break;
+        case "Tab":
+          console.log("tab pressed");
+        // todo if required
+      }
     };
-    // console.log(currentImg);
-  }
+    window.addEventListener("keyup", handleKeypress);
 
-  // function handleModal() {
-  //   // close modal (popup) image
-  //   console.log("modal clicked");
-  // }
+    // remove to prevent duplicates and memory issues on re-render
+    return () => window.removeEventListener("keyup", handleKeypress);
+  }, [handleNext, handlePrev]);
 
   function handleThumbs(e) {
-    // show clicked thumbnail in modal
     // use image.id to select correct image?
     // console.log(e.target.id);
-    setCount((e.target.id) - 1);
+    setCurrentImage((e.target.id) - 1);
   }
-
-  //   handleKeyDown = (event) => {
-  //     if (event.key === 'Escape') {
-  //       console.log('Escape key pressed');
-  //     }
-  //   };
-
-
 
   // HTML including components
   return (
     <>
-      <span id="buttonContainer">
-        <Button handler={handlePrevious} text="Previous" ariaText="click for previous image" />
-        <Button handler={handleNext} text="Next" ariaText="click for next image" />
-      </span>
-      <span id="imageContainer" aria-roledescription="carousel" aria-label="frog images thumbnails">
+      <div id="buttonContainer">
+        <Button handler={handlePrev} text="Previous" ariaText="click for previous image" tabText="7" />
+        <Button handler={handleNext} text="Next" ariaText="click for next image" tabText="8" />
+      </div>
+      <div id="imageContainer" aria-roledescription="carousel" aria-label="frog images thumbnails">
         <Thumbnails handler={handleThumbs} images={images} />
         <Modal image={images[currentImg]} />
-      </span>
+      </div>
     </>
   );
 }
 
-// App.js
-// keypress events from 'geeks for geeks.com'
-// function App() {
-//     const keyUp = (event) => {
-//         console.log(event.key)
-//     }
-//     return (
-//         <div className="App">
-//             <h1>GeeksforGeeks</h1>
-//             <input type='text'
-//                    onKeyUp={keyUp}
-//                    placeholder='Press here...' />
-//         </div>
-//     );
-// }
-
-
-// Detecting the Escape Key and Other Specific Actions
-// Similarly, to detect the escape key or perform specific actions based on the key pressed, you can use conditional statements within your event handler:
-// // class EscapeKeyComponent extends React.Component {
-// function App() {
-//   handleKeyDown = (event) => {
-//     if (event.key === 'Escape') {
-//       console.log('Escape key pressed');
-//     }
-//   };
-//   // render < div onKeyDown = { this.handleKeyDown } tabIndex = "0" > Press Escape</div >;
-//   return (
-//     <div onKeyDown={this.handleKeyDown} tabIndex="0">Press Escape</div>;
-//   )
-// }
-
-// document.addEventListener("keyup", (e) => {
-//     // if (!e.repeat) { // for 'keydown' event
+// sample code from week2 gallery assignment
+// window.addEventListener("keyup", (e) => {
+//   if (!e.repeat) { // for 'keydown' event only
 //     if (e) {
-//         // console.log(e.key);
-//         switch (e.key) { // match key pressed
-//             case "ArrowLeft": showPrev();
-//                 break;
-//             case "p": showPrev();
-//                 break;
-//             case "ArrowRight": showNext();
-//                 break;
-//             case "n": showNext();
-//                 break;
-//             case "1": currentImg = 0; createFullscreenImage(currentImg);
-//                 break;
-//             case "2": currentImg = 1; createFullscreenImage(currentImg);
-//                 break;
-//             case "3": currentImg = 2; createFullscreenImage(currentImg);
-//                 break;
-//             case "4": currentImg = 3; createFullscreenImage(currentImg);
-//                 break;
-//             case "5": currentImg = 4; createFullscreenImage(currentImg);
-//         }
+//       console.log(e.key);
+//       switch (e.key) { // match key pressed
+//         case "ArrowLeft": showPrev();
+//           break;
+//         case "p": showPrev();
+//           break;
+//         case "ArrowRight": showNext();
+//           break;
+//         case "n": showNext();
+//           break;
+//         case "1": currentImg = 0; createFullscreenImage(currentImg);
+//           break;
+//         case "2": currentImg = 1; createFullscreenImage(currentImg);
+//           break;
+//         case "3": currentImg = 2; createFullscreenImage(currentImg);
+//           break;
+//         case "4": currentImg = 3; createFullscreenImage(currentImg);
+//           break;
+//         case "5": currentImg = 4; createFullscreenImage(currentImg);
+//       }
 //     }
-// });
-
-// todo: create div with fixed position, 100vw, 100vh. Use to detect keypresses ??
-// todo: add tabIndex, use tab and enter keys to navigate thumbs ??
+//   });
 
 export default App;
