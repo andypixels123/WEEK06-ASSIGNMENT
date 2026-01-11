@@ -103,7 +103,7 @@ function App() {
       <header><h1>FROGS</h1></header>
       <div aria-roledescription="carousel" aria-label="frog images thumbnails">
         <Thumbnails handler={handleThumbs} images={images} />
-        {showModal && <Modal image={images[currentImg]} onClose={() => { setShowModal(false); setShowButtons(false) }} />}
+        {showModal && <Modal image={images[currentImg]} onClose={() => { setShowModal(false); setShowButtons(false); }} />}
       </div>
       <footer><p>andrew birch</p><p>2026</p></footer>
 
