@@ -15,8 +15,9 @@ body {
 }
 
 p {
-  font-size: 120%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   line-height: 175%;
+  letter-spacing: 2px;
 }
 
 h1 {
@@ -48,7 +49,7 @@ img,
 #buttonContainer {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   justify-content: space-between;
   position: fixed;
@@ -188,5 +189,9 @@ footer {
 
   #thumbs button {
     flex: 1;
+  }
+
+  #buttonContainer {
+    padding: 25px;
   }
 }
