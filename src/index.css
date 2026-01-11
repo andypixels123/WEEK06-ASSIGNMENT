@@ -40,13 +40,11 @@ img {
 }
 
 #buttonContainer,
-#thumbs,
-#modal {
+#thumbs {
   padding: 6px;
 }
 
-#thumbs,
-#modal {
+#thumbs {
   padding-top: 0;
 }
 
@@ -76,7 +74,23 @@ button:hover {
   align-self: center;
 }
 
-@media screen and (min-width: 481px) {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+#modal {
+  /* padding: 20px; */
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+/* @media screen and (min-width: 481px) {
 
   #buttonContainer,
   #thumbs,
@@ -97,9 +111,9 @@ button:hover {
   #buttonContainer {
     gap: 10px;
   }
-}
+} */
 
-@media screen and (min-width: 801px) {
+/* @media screen and (min-width: 801px) {
 
   #imageContainer {
     display: grid;
@@ -122,4 +136,4 @@ button:hover {
     grid-row-start: 1;
     grid-row-end: 2;
   }
-}
+} */

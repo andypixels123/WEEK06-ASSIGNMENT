@@ -23,14 +23,18 @@ import Button from "./components/Button";
 
 function App() {
 
-  // What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
+  const [images, setImages] = useState([]);
+  const [currentImg, setCurrentImage] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   // fetch API data
-  const [images, setImages] = useState([]);
+  // What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
+
   useEffect(() => { // prevent infinite loop // prevent react from reacting
     async function fetchData() {
       const response = await fetch(
         "https://week-6-api.vercel.app/api/images"
+        // "https://www.andrewbirchphotography.com/api/reactGallery"
       );
       const data = await response.json();
       setImages(data);
@@ -39,8 +43,8 @@ function App() {
     fetchData();
   }, []);
 
-  const [currentImg, setCurrentImage] = useState(0);
-  // useCallback is a React Hook that caches function definition between re-renders
+
+  //'useCallback' is a React Hook that caches function definition between renders
   // next image in gallery
   const handleNext = useCallback(() => {
     setCurrentImage((currentImg) => (currentImg > 4 ? 0 : currentImg + 1));
@@ -64,15 +68,13 @@ function App() {
           break;
         case "Enter":
           console.log("enter pressed");
-          // todo
+          setShowModal(true);
           break;
         case " ":
           console.log("spacebar pressed");
-          // todo
           break;
-        case "Tab":
-          console.log("tab pressed");
-        // todo if required
+        case "Escape":
+          setShowModal(false);
       }
     };
     window.addEventListener("keyup", handleKeypress);
@@ -85,8 +87,10 @@ function App() {
     // use image.id to select correct image?
     // console.log(e.target.id);
     setCurrentImage((e.target.id) - 1);
+    setShowModal(true);
   }
 
+  // todo: move next/prev buttons onto modal, STYLE EVERYTHING!
   // HTML including components
   return (
     <>
@@ -95,38 +99,10 @@ function App() {
         <Button handler={handleNext} text="Next" ariaText="click for next image" tabText="8" />
       </div>
       <div id="imageContainer" aria-roledescription="carousel" aria-label="frog images thumbnails">
-        <Thumbnails handler={handleThumbs} images={images} />
-        <Modal image={images[currentImg]} />
+        <Thumbnails id="1" handler={handleThumbs} images={images} />
+        {showModal && <Modal image={images[currentImg]} onClose={() => setShowModal(false)} />}
       </div>
     </>
   );
 }
-
-// sample code from week2 gallery assignment
-// window.addEventListener("keyup", (e) => {
-//   if (!e.repeat) { // for 'keydown' event only
-//     if (e) {
-//       console.log(e.key);
-//       switch (e.key) { // match key pressed
-//         case "ArrowLeft": showPrev();
-//           break;
-//         case "p": showPrev();
-//           break;
-//         case "ArrowRight": showNext();
-//           break;
-//         case "n": showNext();
-//           break;
-//         case "1": currentImg = 0; createFullscreenImage(currentImg);
-//           break;
-//         case "2": currentImg = 1; createFullscreenImage(currentImg);
-//           break;
-//         case "3": currentImg = 2; createFullscreenImage(currentImg);
-//           break;
-//         case "4": currentImg = 3; createFullscreenImage(currentImg);
-//           break;
-//         case "5": currentImg = 4; createFullscreenImage(currentImg);
-//       }
-//     }
-//   });
-
 export default App;
