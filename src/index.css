@@ -6,72 +6,97 @@
   line-height: 1;
 }
 
-/* button {
-  all: unset;
-} */
+body {
+  background-color: black;
+}
 
 body,
 button {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   letter-spacing: 2px;
-  color: #404040;
+  color: rgb(209, 209, 208);
   cursor: default;
 }
 
-button {
-  text-align: center;
+h1 {
+  font-size: 300%;
+  font-weight: 100;
+  letter-spacing: 10px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
 }
 
 img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 10px;
 }
 
-#thumbs img,
-#buttonContainer button {
+button {
+  border: 0;
+  border-radius: 14px;
+  transition: all 0.5s ease;
+}
+
+img,
+.btn {
   cursor: pointer;
 }
 
 #buttonContainer {
   display: flex;
-  gap: 6px;
-  border-radius: 10px;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  justify-content: space-between;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.btn {
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 60px;
+  max-height: 60px;
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border-radius: 50%;
+  border: 4px solid lime;
+  opacity: 0.3;
+}
+
+.btn:hover {
+  opacity: 1;
 }
 
 #buttonContainer,
-#thumbs {
-  padding: 6px;
-}
-
-#thumbs {
-  padding-top: 0;
+.btn {
+  z-index: 10;
 }
 
 #thumbs {
   display: flex;
-  /* align-items: flex-start; */
-  gap: 6px;
-  background-color: gray;
-}
-
-button {
-  background-color: rgb(235, 235, 235);
-  padding: 20px 0;
-  border: 0;
-  border-radius: 6px;
-  transition: 0.5s;
-  flex: 1;
-}
-
-button:hover {
-  background-color: rgb(190, 255, 191);
-  /* background-color: rgb(201, 190, 255); */
+  flex-direction: column;
+  gap: 40px;
+  max-width: 25%;
+  margin: auto;
 }
 
 #thumbs button {
-  padding: 10px 0;
-  align-self: center;
+  background-color: black;
+  padding: 8px;
+}
+
+#thumbs button:hover {
+  background-color:lime;
 }
 
 @keyframes fadeIn {
@@ -85,55 +110,27 @@ button:hover {
 }
 
 #modal {
-  /* padding: 20px; */
+  display: flex;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
   animation-name: fadeIn;
   animation-duration: 1s;
 }
 
+#modal img {
+  object-fit: contain;
+}
+
+
 /* @media screen and (min-width: 481px) {
 
-  #buttonContainer,
-  #thumbs,
-  #modal {
-    padding: 10px;
-  }
-
-  #thumbs,
-  #modal {
-    padding-top: 0;
-  }
-
-  button {
-    padding: 20px 0;
-  }
-
-  #thumbs,
-  #buttonContainer {
-    gap: 10px;
-  }
 } */
 
 /* @media screen and (min-width: 801px) {
 
-  #imageContainer {
-    display: grid;
-    grid-template-columns: 1fr 7fr;
-    grid-template-rows: 1fr;
-  }
-
-  #modal {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    padding-left: 0;
-  }
-
-  #thumbs {
-    flex-direction: column;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 2;
-  }
 } */

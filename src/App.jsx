@@ -26,6 +26,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [currentImg, setCurrentImage] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
 
   // fetch API data
   // What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
@@ -69,12 +70,17 @@ function App() {
         case "Enter":
           console.log("enter pressed");
           setShowModal(true);
+          setShowButtons(true);
           break;
         case " ":
           console.log("spacebar pressed");
           break;
         case "Escape":
           setShowModal(false);
+          setShowButtons(false);
+          break;
+        // case "Tab":
+        //   handleNext();
       }
     };
     window.addEventListener("keyup", handleKeypress);
@@ -85,23 +91,24 @@ function App() {
 
   function handleThumbs(e) {
     // use image.id to select correct image?
-    // console.log(e.target.id);
+    console.log((e.target.id) - 1);
     setCurrentImage((e.target.id) - 1);
     setShowModal(true);
+    setShowButtons(true);
   }
 
-  // todo: move next/prev buttons onto modal, STYLE EVERYTHING!
   // HTML including components
   return (
     <>
-      <div id="buttonContainer">
-        <Button handler={handlePrev} text="Previous" ariaText="click for previous image" tabText="7" />
-        <Button handler={handleNext} text="Next" ariaText="click for next image" tabText="8" />
-      </div>
+      <header><h1>FROGS</h1></header>
       <div id="imageContainer" aria-roledescription="carousel" aria-label="frog images thumbnails">
-        <Thumbnails id="1" handler={handleThumbs} images={images} />
-        {showModal && <Modal image={images[currentImg]} onClose={() => setShowModal(false)} />}
+        <Thumbnails handler={handleThumbs} images={images} />
+        {showModal && <Modal image={images[currentImg]} onClose={() => { setShowModal(false); setShowButtons(false) }} />}
       </div>
+      {showButtons && <div id="buttonContainer">
+        <Button btnclass="btn" handler={handlePrev} text="&lt;" ariaText="click for previous image" tabText="1" />
+        <Button btnclass="btn" handler={handleNext} text="&gt;" ariaText="click for next image" tabText="2" />
+      </div>}
     </>
   );
 }
