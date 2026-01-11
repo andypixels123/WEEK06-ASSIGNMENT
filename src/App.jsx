@@ -101,14 +101,17 @@ function App() {
   return (
     <>
       <header><h1>FROGS</h1></header>
-      <div id="imageContainer" aria-roledescription="carousel" aria-label="frog images thumbnails">
+      <div aria-roledescription="carousel" aria-label="frog images thumbnails">
         <Thumbnails handler={handleThumbs} images={images} />
         {showModal && <Modal image={images[currentImg]} onClose={() => { setShowModal(false); setShowButtons(false) }} />}
       </div>
+      <footer><p>andrew birch</p><p>2026</p></footer>
+
       {showButtons && <div id="buttonContainer">
         <Button btnclass="btn" handler={handlePrev} text="&lt;" ariaText="click for previous image" tabText="1" />
         <Button btnclass="btn" handler={handleNext} text="&gt;" ariaText="click for next image" tabText="2" />
       </div>}
+
     </>
   );
 }
